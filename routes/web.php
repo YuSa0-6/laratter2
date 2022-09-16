@@ -7,6 +7,9 @@ use App\Http\Controllers\TweetController;
 // 🔽 追加
 use App\Http\Controllers\FavoriteController;
 
+// 🔽 追加
+use App\Http\Controllers\FollowController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +21,10 @@ use App\Http\Controllers\FavoriteController;
 |
 */
 Route::group(['middleware' => 'auth'], function () {
+    // 🔽 追加
+    Route::post('user/{user}/follow', [FollowController::class, 'store'])->name('follow');
+  // 🔽 追加
+    Route::post('user/{user}/unfollow', [FollowController::class, 'destroy'])->name('unfollow');
     // 🔽 追加
     Route::post('tweet/{tweet}/favorites', [FavoriteController::class, 'store'])->name('favorites');
 
