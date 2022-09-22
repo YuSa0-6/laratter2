@@ -9,6 +9,8 @@ use App\Http\Controllers\FavoriteController;
 
 // 🔽 追加
 use App\Http\Controllers\FollowController;
+// 🔽 追加
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +23,23 @@ use App\Http\Controllers\FollowController;
 |
 */
 Route::group(['middleware' => 'auth'], function () {
+    // 🔽 追加（検索画面）
+    Route::get('/tweet/search/input', [SearchController::class, 'create'])->name('search.input');
+    // 🔽 追加（検索処理）
+    Route::get('/tweet/search/result', [SearchController::class, 'index'])->name('search.result');
+     // 🔽 追加
+    Route::get('/tweet/timeline', [TweetController::class, 'timeline'])->name('tweet.timeline');
+    // 🔽 追加
+    Route::get('user/{user}', [FollowController::class, 'show'])->name('follow.show');
+
     // 🔽 追加
     Route::post('user/{user}/follow', [FollowController::class, 'store'])->name('follow');
-  // 🔽 追加
+    // 🔽 追加
     Route::post('user/{user}/unfollow', [FollowController::class, 'destroy'])->name('unfollow');
     // 🔽 追加
     Route::post('tweet/{tweet}/favorites', [FavoriteController::class, 'store'])->name('favorites');
 
-  // 🔽 追加
+    // 🔽 追加
     Route::post('tweet/{tweet}/unfavorites', [FavoriteController::class, 'destroy'])->name('unfavorites');
 
     //add

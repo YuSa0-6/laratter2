@@ -24,7 +24,9 @@
 
                   <!-- 🔽 ここから編集 -->
                   <div class="flex">
-                    <p class="text-left text-grey-dark">{{$tweet->user->name}}</p>
+                    <a href="{{ route('follow.show', $tweet->user->id) }}">
+                      <p class="text-left text-grey-dark">{{$tweet->user->name}}</p>
+                    </a>
                     <!-- follow 状態で条件分岐 -->
                     @if(Auth::user()->followings()->where('users.id', $tweet->user->id)->exists())
                     <!-- unfollow ボタン -->
