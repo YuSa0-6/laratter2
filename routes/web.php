@@ -23,6 +23,8 @@ use App\Http\Controllers\SearchController;
 |
 */
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/password/change', [ChangePasswordController::class,'edit']);
+    Route::patch('/password/change',[ChangePasswordController::class,'update'])->name('password.change');
     // 🔽 追加（検索画面）
     Route::get('/tweet/search/input', [SearchController::class, 'create'])->name('search.input');
     // 🔽 追加（検索処理）
