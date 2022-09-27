@@ -12,6 +12,8 @@ use App\Http\Controllers\FollowController;
 // 🔽 追加
 use App\Http\Controllers\SearchController;
 
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,13 @@ use App\Http\Controllers\SearchController;
 |
 */
 Route::group(['middleware' => 'auth'], function () {
+    //ユーザ削除
+    Route::get('/user/profile', [UserController::class, 'show'])
+     ->middleware('auth')
+     ->name('user.profile');
+    Route::delete('/user/{user}', [UserController::class, 'destroy'])
+     ->name('user.destroy');
+
     Route::get('/password/change', [ChangePasswordController::class,'edit']);
     Route::patch('/password/change',[ChangePasswordController::class,'update'])->name('password.change');
     // 🔽 追加（検索画面）
